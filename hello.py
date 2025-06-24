@@ -1,6 +1,7 @@
-amount_list = []
-description_list = []
-expenses_list = []
+from datetime import datetime
+expenses_dict= {}
+expense_count = 0
+total_expense = 0
 
 while True:
     try:
@@ -12,14 +13,20 @@ while True:
     if amount <= 0:
         break
 
-    amount_list.append(amount)
-
     description = input("Expense description: ")
-    description_list.append(description)
+    time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    total_expense += amount
 
-    expenses = input("Amount of expenses: ")
-    expenses_list.append(expenses)
 
-print("Amounts:", amount_list)
-print("Descriptions:", description_list)
-print("Expenses:", expenses_list)
+    expenses_dict[f"Expenses {expense_count+1}"]={
+        "description": description,
+        "amount": amount,
+        "time": time
+    }
+    expense_count += 1
+
+print("Expenses recorded:")
+for key, value in expenses_dict.items():
+    print(f"{key}: Description: {value['description']}, Amount: {value['amount']}, Time: {value['time']}")
+print(f"Total expenses: {total_expense}")
+print(f"Total number of expenses: {expense_count}")
